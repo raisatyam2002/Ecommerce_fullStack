@@ -7,19 +7,36 @@ export const registerController = async (req: Request, res: Response) => {
   try {
     const { name, email, password, phone, address } = await req.body;
     if (!name) {
-      res.send({ error: "name is required" });
+      return res.send({
+        message: "name is required",
+      });
     }
     if (!email) {
-      res.send({ error: "email is required" });
+      return res.send({
+        succes: false,
+        message: "email is required",
+      });
     }
     if (!password) {
-      res.send({ error: "password is required" });
+      return res.send({
+        succes: false,
+
+        message: "password is required",
+      });
     }
     if (!phone) {
-      res.send({ error: "phone is required" });
+      return res.send({
+        succes: false,
+
+        message: "phone is required",
+      });
     }
     if (!address) {
-      res.send({ error: "address is required" });
+      return res.send({
+        succes: false,
+
+        message: "address is required",
+      });
     }
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
@@ -57,8 +74,9 @@ export const registerController = async (req: Request, res: Response) => {
 export const loginController = async (req: Request, res: Response) => {
   const { email, password } = await req.body;
   if (!email || !password) {
-    return res.status(404).send({
-      error: "user detail invalid",
+    return res.send({
+      success: false,
+      message: "user detail invalid",
     });
   }
   try {
@@ -82,7 +100,7 @@ export const loginController = async (req: Request, res: Response) => {
 
     const token = JWT.sign({ _id: user._id }, secret, { expiresIn: "7d" });
     res.status(200).send({
-      succes: true,
+      success: true,
       message: "user logged in succesfully",
       user: {
         name: user.name,
