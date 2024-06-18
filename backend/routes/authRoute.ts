@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  forgetPasswordController,
   loginController,
   registerController,
   testController,
@@ -15,4 +16,5 @@ router.get("/user-auth", requireSignin, (req, res) => {
     ok: true,
   });
 });
+router.post("/forgotPassword", forgetPasswordController);
 export default router;

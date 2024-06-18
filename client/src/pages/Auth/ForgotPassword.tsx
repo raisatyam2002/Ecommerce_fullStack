@@ -3,9 +3,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -13,34 +10,35 @@ import { Layout } from "../../components/Layout/Layout";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../context/auth";
+import { useNavigate } from "react-router-dom";
+
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export function Login() {
-  const location = useLocation();
-  const navigate = useNavigate();
+export function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [auth, setAuth] = useAuth();
+  const [answer, setAnswer] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:5000/api/v1/auth/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `http://localhost:5000/api/v1/auth/forgotPassword`,
+        {
+          email,
+          newPassword,
+          answer,
+        }
+      );
       console.log(res);
 
       if (res.data.success) {
         toast.success(res.data.message);
 
         console.log(res.data);
-
-        setAuth({ ...auth, user: res.data.user, token: res.data.token });
-        localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/");
+        navigate("/login");
       } else {
         toast.error(res.data.message);
       }
@@ -96,13 +94,26 @@ export function Login() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
+                name="newPassword"
+                label="newPassword"
+                type="newPassword"
+                id="newPassword"
                 autoComplete="current-password"
                 onChange={(e) => {
-                  setPassword(e.target.value);
+                  setNewPassword(e.target.value);
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="answer"
+                label="What is your first school name"
+                type="answer"
+                id="answer"
+                autoComplete="current-password"
+                onChange={(e) => {
+                  setAnswer(e.target.value);
                 }}
               />
 
@@ -112,20 +123,8 @@ export function Login() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Change Password
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/forgotPassword" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/register" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
             </Box>
           </Box>
         </Container>

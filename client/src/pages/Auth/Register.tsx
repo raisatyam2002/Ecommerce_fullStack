@@ -22,6 +22,7 @@ export function Register() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,6 +38,7 @@ export function Register() {
           password,
           phone,
           address,
+          answer,
         }
       );
       if (res.data.success) {
@@ -137,6 +139,20 @@ export function Register() {
                     autoComplete="Address"
                     onChange={(e) => {
                       setAddress(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="Answer"
+                    label="What is you first school name"
+                    type="Answer"
+                    id="Address"
+                    autoComplete="Answer"
+                    onChange={(e) => {
+                      setAnswer(e.target.value);
                     }}
                   />
                 </Grid>

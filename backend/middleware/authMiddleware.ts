@@ -31,7 +31,7 @@ export const requireSignin = async (
 
     try {
       const decode = JWT.verify(token, secret);
-      console.log("decode is", decode);
+      //   console.log("decode is", decode);
 
       req.user = decode;
       next();
