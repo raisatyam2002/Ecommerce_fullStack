@@ -71,6 +71,7 @@ export function ForgotPassword() {
               alignItems: "center",
             }}
           >
+            <h1 className="text-3xl flex justify-center ">Reset Password</h1>
             <Box
               component="form"
               onSubmit={handleSubmit}

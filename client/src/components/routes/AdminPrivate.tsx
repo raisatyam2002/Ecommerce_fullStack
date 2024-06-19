@@ -4,20 +4,20 @@ import { useAuth } from "../../context/auth";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
 import CircularIndeterminate from "../Spinner";
-export const Private = () => {
+export const AdminPrivate = () => {
   const [auth, setAuth] = useAuth();
   const [ok, setOk] = useState(false);
   useEffect(() => {
     async function authCheck() {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/auth/user-auth",
+        "http://localhost:5000/api/v1/auth/admin-auth",
         {
           headers: {
             Authorization: "Bearer " + auth?.token,
           },
         }
       );
-      if (res.data.ok && auth.user.role === 0) {
+      if (res.data.ok && auth.user.role === 1) {
         setOk(true);
       }
     }

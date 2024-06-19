@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { BsShop } from "react-icons/bs";
 import { useAuth } from "../../context/auth";
+import Dropdown from "../Dropdown";
 
 export const Headers = () => {
   const [auth, setAuth] = useAuth();
@@ -8,6 +9,7 @@ export const Headers = () => {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
   }
+  //   console.log("handleLogout in Headers:", handleLogout);
   return (
     <div className="flex font-poppins text-xl bg-zinc-200 shadow-lg h-12 pt-2 px-1 ">
       <NavLink to="/" className="flex space-x-2 font-extrabold">
@@ -37,10 +39,13 @@ export const Headers = () => {
           </>
         ) : (
           <>
-            <li className="mr-6">
+            {/* <li className="mr-6">
               <NavLink onClick={handleLogout} to="/login">
                 logout
               </NavLink>
+            </li> */}
+            <li className="mr-6">
+              <Dropdown handleLogout={handleLogout} role={auth.user.role} />
             </li>
           </>
         )}

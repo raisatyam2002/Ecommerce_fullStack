@@ -2,21 +2,30 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-export default function CircularIndeterminate() {
+interface CircularIndeterminateProps {
+  role: number;
+}
+const CircularIndeterminate: React.FC<CircularIndeterminateProps> = ({
+  role,
+}) => {
   const location = useLocation();
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(3);
   const navigate = useNavigate();
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => --prev);
     }, 1000);
-    count === 0 &&
-      navigate("/login", {
-        state: location.pathname,
+
+    if (count === 0) {
+      navigate(role == 0 || role == 1 ? "/" : "/login", {
+        state: { from: location.pathname },
       });
+    }
+
     return () => clearInterval(interval);
-  }, [count, navigate, location]);
+  }, [count, navigate, location, role]);
+
   return (
     <Box
       sx={{
@@ -31,4 +40,6 @@ export default function CircularIndeterminate() {
       <CircularProgress />
     </Box>
   );
-}
+};
+
+export default CircularIndeterminate;

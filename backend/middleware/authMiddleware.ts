@@ -50,6 +50,7 @@ export const isAdmin = async (
 ) => {
   try {
     const userId = req.user._id; // Adjust according to your token payload structure
+    console.log("user id is ", userId);
     if (!userId) {
       return res.status(401).send({
         success: false,

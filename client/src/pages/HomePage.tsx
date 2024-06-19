@@ -1,5 +1,6 @@
 import { Layout } from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
+
 export const HomePage = () => {
   const [auth] = useAuth();
   return (

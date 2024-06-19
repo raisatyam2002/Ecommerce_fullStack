@@ -16,5 +16,8 @@ router.get("/user-auth", requireSignin, (req, res) => {
     ok: true,
   });
 });
+router.get("/admin-auth", requireSignin, isAdmin, (req, res) => {
+  res.status(200).send({ ok: true });
+});
 router.post("/forgotPassword", forgetPasswordController);
 export default router;

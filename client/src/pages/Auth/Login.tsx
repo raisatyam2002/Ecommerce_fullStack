@@ -73,6 +73,7 @@ export function Login() {
               alignItems: "center",
             }}
           >
+            <h1 className="text-3xl flex justify-center ">Login Form</h1>
             <Box
               component="form"
               onSubmit={handleSubmit}
