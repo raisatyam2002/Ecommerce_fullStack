@@ -20,7 +20,6 @@ export const registerController = async (req: Request, res: Response) => {
     if (!password) {
       return res.send({
         succes: false,
-
         message: "password is required",
       });
     }
