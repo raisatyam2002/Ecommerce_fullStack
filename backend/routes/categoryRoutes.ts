@@ -32,4 +32,10 @@ router.delete(
   deleteCategoryController
 );
 
+router.put(
+  "/update-category/:id",
+  requireSignin,
+  isAdmin,
+  updateCategoryController
+);
 export default router;

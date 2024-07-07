@@ -30,10 +30,12 @@ export const requireSignin = async (
     }
 
     try {
-      const decode = JWT.verify(token, secret);
+      const decode = await JWT.verify(token, secret);
       //   console.log("decode is", decode);
 
       req.user = decode;
+      console.log("decode is ", decode);
+
       next();
     } catch (error) {
       return res.status(401).send({ message: "Invalid token" });

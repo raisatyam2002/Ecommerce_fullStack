@@ -4,6 +4,7 @@ import connectDb from "./config/db";
 import morgan from "morgan";
 import authRoutes from "./routes/authRoute";
 import categoryRoutes from "./routes/categoryRoutes";
+import productRoutes from "./routes/productRoute";
 import cors from "cors";
 dotenv.config();
 const PORT = process.env.PORT;
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/product", productRoutes);
+
 app.use(morgan("dev"));
 // import userRoute from "./routes/userRoutes";
 
