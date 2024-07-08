@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel";
-import category from "../models/categoryModel";
+
 export const categoryController = async (req: Request, res: Response) => {
   console.log("accesing");
 
@@ -16,7 +16,7 @@ export const categoryController = async (req: Request, res: Response) => {
     const existingCategory = await categoryModel.findOne({ name });
     if (existingCategory) {
       return res.status(201).send({
-        success: "true",
+        success: false,
         message: "category already exist",
       });
     } else {
@@ -26,7 +26,7 @@ export const categoryController = async (req: Request, res: Response) => {
       }).save();
       console.log(category);
       res.status(201).send({
-        success: false,
+        success: true,
         message: "new catgegory created",
         category,
       });
@@ -34,7 +34,7 @@ export const categoryController = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(501).send({
-      success: true,
+      success: false,
       error: error,
       message: "error in category",
     });
