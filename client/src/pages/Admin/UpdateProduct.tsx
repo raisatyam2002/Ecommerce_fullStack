@@ -6,9 +6,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Card from "../../components/admin/ProductCard";
 import { useAuth } from "../../context/auth";
-import { useNavigate } from "react-router-dom";
-export const CreateProduct = () => {
+import { useNavigate, useParams } from "react-router-dom";
+export const UpdateProduct = () => {
   const navigate = useNavigate();
+  const { slug } = useParams();
+  const [pid, setPid] = useState("");
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
@@ -19,6 +21,45 @@ export const CreateProduct = () => {
   const [photo, setPhoto] = useState<any>();
   const [auth, setAuth] = useAuth();
   //getAllCatgeories
+  const getProduct = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5000/api/v1/product/get-product/${slug}`
+      );
+      if (data.success) {
+        console.log("product data is ", data);
+        setName(data.product.name);
+        setDescription(data.product.description);
+        setPrice(data.product.price);
+        setQuantity(data.product.quantity);
+        setCategory(data.product.category._id);
+        setShipping(data.product.shipping);
+        setPid(data.product._id);
+      } else {
+        toast.error("error1");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("error2");
+    }
+  };
+  const handleDelete = async () => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:5000/api/v1/product/delete-product/${pid}`
+      );
+      if (data.success) {
+        toast.success("product deleted succesfully");
+        navigate("/dashboard/admin/products");
+      } else {
+        toast.error("error while deleting product 1");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("error while deleting product 2");
+    }
+  };
+
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
@@ -35,8 +76,8 @@ export const CreateProduct = () => {
   };
   const handleSubmit = async () => {
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/product/create-product",
+      const { data } = await axios.put(
+        `http://localhost:5000/api/v1/product/update-product/${pid}`,
         {
           name: name,
           description: description,
@@ -54,18 +95,19 @@ export const CreateProduct = () => {
         }
       );
       if (data.success) {
-        toast.success("product created successfully");
+        toast.success("product updated successfully");
         navigate("/dashboard/admin/products");
       } else {
-        toast.error("error while creating product 1");
+        toast.error("error while updating product 1");
       }
     } catch (error) {
       console.log(error);
-      toast.error("error while creating prdouct");
+      toast.error("error while updating product");
     }
   };
   useEffect(() => {
     getAllCategory();
+    getProduct();
   }, []);
   return (
     <Layout>
@@ -74,12 +116,14 @@ export const CreateProduct = () => {
           <AdminMenu />
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg m-3 ">
-          <h1 className="my-6">Create Product</h1>
-          <SelectFormSubmission
-            categories={categories}
-            catgeory={category}
-            setCategory={setCategory}
-          ></SelectFormSubmission>
+          <h1 className="my-6">Update Product</h1>
+          {categories.length > 0 && (
+            <SelectFormSubmission
+              categories={categories}
+              category={category}
+              setCategory={setCategory}
+            />
+          )}
           <div className="photo my-4">
             <label>
               {photo ? photo.name : "Upload Photo "}
@@ -151,7 +195,7 @@ export const CreateProduct = () => {
             <input
               type="sele"
               value={shipping}
-              placeholder="Write shippinf status of the product"
+              placeholder="Write shipping status of the product"
               onChange={(e) => {
                 setShipping(e.target.value);
               }}
@@ -163,7 +207,13 @@ export const CreateProduct = () => {
               className="m-4 border-2 w-32 h-8 rounded-md bg-sky-300"
               onClick={handleSubmit}
             >
-              Create product
+              Update product
+            </button>
+            <button
+              className="m-4 border-2 w-32 h-8 rounded-md bg-red-600"
+              onClick={handleDelete}
+            >
+              Delete product
             </button>
           </div>
         </div>

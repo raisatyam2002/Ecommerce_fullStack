@@ -24,7 +24,7 @@ router.post(
 router.get("/get-product", getProductsController);
 router.get("/get-product/:slug", getSingleProductsController);
 router.get("/product-photo/:pid", productPhotoController);
-router.delete("/product/:pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 router.put(
   "/update-product/:pid",
   requireSignin,

@@ -5,7 +5,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import App from "./OpenModal";
+import { App } from "./OpenModal";
 import { useState } from "react";
 export default function BasicTable({
   categories,
@@ -37,7 +37,7 @@ export default function BasicTable({
               </TableCell>
               <TableCell align="right">
                 <button
-                  className="bg-blue-400 w-16"
+                  className="bg-blue-400 w-16 rounded-md h-8"
                   onClick={() => {
                     setIsModalOpen(true);
                     setId(category._id);
@@ -48,7 +48,7 @@ export default function BasicTable({
               </TableCell>
               <TableCell align="right">
                 <button
-                  className="bg-red-600 w-16"
+                  className="bg-red-600 w-16 rounded-md h-8"
                   onClick={() => {
                     handleDelete(category._id);
                   }}

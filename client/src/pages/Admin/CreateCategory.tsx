@@ -19,7 +19,7 @@ const CreateCategory = () => {
       );
       console.log("data is", data);
       if (data.success) {
-        setCategories(data.category);
+        setCategories(data?.category);
       }
     } catch (error) {
       console.log(error);
@@ -111,7 +111,7 @@ const CreateCategory = () => {
           <AdminMenu />
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg m-1">
-          <h1>Create Category</h1>
+          <h1 className="font-semibold text-3xl">Mangage Category</h1>
           <CategoryForm
             value={name}
             setName={setName}

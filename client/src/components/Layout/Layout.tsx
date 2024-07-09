@@ -30,7 +30,7 @@ export const Layout = ({
       </Helmet>
       <Headers />
 
-      <main className="h-70v">
+      <main className="h-90v">
         <ToastContainer />
         {children}
       </main>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="bg-custom-gradient text-white p-3 h-70v">
+    <div className="bg-custom-gradient text-white p-3 h-20v">
       <h1 className="text-center font-mono font-normal text-2xl p-5">
         &copy; 2024 Company Name. All rights reserved
       </h1>

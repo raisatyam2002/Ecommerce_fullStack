@@ -9,7 +9,7 @@ interface AppProps {
   handleUpdate: (id: string) => void;
 }
 
-const App: React.FC<AppProps> = ({
+export const App: React.FC<AppProps> = ({
   isModalOpen,
   setIsModalOpen,
   id,
@@ -61,5 +61,3 @@ const App: React.FC<AppProps> = ({
     </>
   );
 };
-
-export default App;

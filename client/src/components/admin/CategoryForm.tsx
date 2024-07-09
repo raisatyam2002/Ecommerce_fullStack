@@ -22,7 +22,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       ></input>
       <button
         className="m-4 bg-blue-400 w-16 rounded-md"
-        onClick={handleSubmit}
+        onClick={() => {
+          handleSubmit();
+          setName("");
+        }}
       >
         submit
       </button>
