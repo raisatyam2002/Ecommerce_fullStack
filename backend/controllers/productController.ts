@@ -223,3 +223,39 @@ export const updateProductController = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const productFiltersController = async (req: Request, res: Response) => {
+  console.log("hii deoeo");
+
+  try {
+    const { checked, radio } = req.body;
+    console.log(req.body);
+
+    let args: any = {};
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) {
+      args.price = { $gte: radio[0], $lte: radio[1] };
+    }
+    const products = await productModel.find(args).select("-photo");
+    console.log(":products are detail", products);
+
+    if (products) {
+      res.status(200).send({
+        success: true,
+        message: "product filter succesfully",
+        products: products,
+      });
+    } else {
+      return res.status(201).send({
+        success: false,
+        message: "error by filtering product",
+      });
+    }
+  } catch (error) {
+    return res.status(501).send({
+      success: false,
+      error: error,
+      message: "error by filtering product",
+    });
+  }
+};

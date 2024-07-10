@@ -8,6 +8,7 @@ import {
   productPhotoController,
   deleteProductController,
   updateProductController,
+  productFiltersController,
 } from "../controllers/productController";
 
 const router = express.Router();
@@ -32,4 +33,5 @@ router.put(
   formidable(),
   updateProductController
 );
+router.post("/product-filter", productFiltersController);
 export default router;
