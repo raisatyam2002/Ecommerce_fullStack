@@ -9,6 +9,8 @@ import {
   deleteProductController,
   updateProductController,
   productFiltersController,
+  productCountController,
+  productListController,
 } from "../controllers/productController";
 
 const router = express.Router();
@@ -34,4 +36,6 @@ router.put(
   updateProductController
 );
 router.post("/product-filter", productFiltersController);
+router.get("/product-count", productCountController);
+router.get("/product-list/:page?", productListController);
 export default router;

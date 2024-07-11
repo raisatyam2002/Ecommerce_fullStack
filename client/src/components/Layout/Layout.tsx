@@ -2,7 +2,8 @@
 
 import { Footer } from "./Footer";
 import { Headers } from "./Headers";
-import { Helmet } from "react-helmet";
+
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 interface LayoutProps {
@@ -14,20 +15,23 @@ interface LayoutProps {
 }
 export const Layout = ({
   children,
-  title,
-  description,
-  keywords,
-  author,
+  title = "Ecommerce app",
+  description = "mern stack project",
+  keywords = "mongodb, react, node, express",
+  author = "satyam Rai",
 }: LayoutProps) => {
   return (
     <div>
-      <Helmet>
-        <meta charSet="UTF-8" />
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
-        <meta name="author" content={author} />
-        <title>{title}</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <meta charSet="UTF-8" />
+          <meta name="description" content={description} />
+          <meta name="keywords" content={keywords} />
+          <meta name="author" content={author} />
+          <title>{title}</title>
+        </Helmet>
+      </HelmetProvider>
+
       <Headers />
 
       <main className="h-90v">
@@ -39,9 +43,9 @@ export const Layout = ({
     </div>
   );
 };
-Layout.defaultProps = {
-  title: "Ecommerce app",
-  description: "mern stack project",
-  keywords: "mongodb, react,node ,express",
-  author: "satyam Rai",
-};
+// Layout.defaultProps = {
+//   title: "Ecommerce app",
+//   description: "mern stack project",
+//   keywords: "mongodb, react,node ,express",
+//   author: "satyam Rai",
+// };

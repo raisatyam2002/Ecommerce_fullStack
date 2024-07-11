@@ -259,3 +259,43 @@ export const productFiltersController = async (req: Request, res: Response) => {
     });
   }
 };
+export const productCountController = async (req: Request, res: Response) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+    return res.status(200).send({
+      success: true,
+      total: total,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(501).send({
+      message: "Error while counting product",
+      error: error,
+      success: false,
+    });
+  }
+};
+export const productListController = async (req: Request, res: Response) => {
+  try {
+    const perPage = 6;
+    console.log(req.params.page);
+
+    const page = req.params.page ? req.params.page : 1;
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((Number(page) - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    return res.status(501).send({
+      message: "Error in per page  controller",
+      error: error,
+      success: false,
+    });
+  }
+};
