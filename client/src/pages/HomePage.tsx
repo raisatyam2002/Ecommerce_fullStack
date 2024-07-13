@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import Card from "../components/admin/ProductCard";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
+import SearchBar from "../components/Searchbar";
 
 export const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const [auth] = useAuth();
+  const [keyWord, setKeyWord] = useState("");
+
   const [products, setProducts] = useState<any>([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState<any>([]);
@@ -170,6 +172,9 @@ export const HomePage = () => {
         </div>
         {products.length > 0 ? (
           <div className=" col-span-2">
+            <div className="m-4">
+              <SearchBar keyWord={keyWord} setKeyWord={setKeyWord} />
+            </div>
             <h1 className="text-xl"> All products</h1>
             <div className="flex">
               {products?.map((product: any) => (

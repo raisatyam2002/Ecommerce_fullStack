@@ -1,6 +1,7 @@
 import productModel from "../models/productModel";
 import { Request, Response } from "express";
 import fs from "fs";
+import mongoose from "mongoose";
 import slugify from "slugify";
 
 interface CustomFields {
@@ -296,6 +297,57 @@ export const productListController = async (req: Request, res: Response) => {
       message: "Error in per page  controller",
       error: error,
       success: false,
+    });
+  }
+};
+export const searchProductController = async (req: Request, res: Response) => {
+  try {
+    const { keyword } = req.params;
+    const products = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
+    return res.status(200).send({
+      success: true,
+      products: products,
+      message: "products search successfully",
+    });
+  } catch (error) {
+    return res.status(501).send({
+      message: "Error in searching product",
+      error: error,
+      success: false,
+    });
+  }
+};
+export const realtedProductController = async (req: Request, res: Response) => {
+  try {
+    const { pid, cid } = req.params;
+    const productId = new mongoose.Types.ObjectId(pid);
+    const categoryId = new mongoose.Types.ObjectId(cid);
+
+    const products = await productModel
+      .find({
+        category: categoryId,
+        _id: { $ne: productId },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error while geting related product",
+      error,
     });
   }
 };

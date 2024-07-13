@@ -11,6 +11,8 @@ import {
   productFiltersController,
   productCountController,
   productListController,
+  searchProductController,
+  realtedProductController,
 } from "../controllers/productController";
 
 const router = express.Router();
@@ -38,4 +40,8 @@ router.put(
 router.post("/product-filter", productFiltersController);
 router.get("/product-count", productCountController);
 router.get("/product-list/:page?", productListController);
+//search product router
+router.get("/search/:keyword", searchProductController);
+//similar product
+router.get("/related-product/:pid/:cid", realtedProductController);
 export default router;
