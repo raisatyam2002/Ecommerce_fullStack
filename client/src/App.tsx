@@ -21,6 +21,8 @@ import { Orders } from "./pages/user/Orders";
 import { Products } from "./pages/Admin/Products";
 import { UpdateProduct } from "./pages/Admin/UpdateProduct";
 import { SearchProduct } from "./pages/SearchProduct";
+import { Categories } from "./pages/Categories";
+import { SingleCategory } from "./pages/SingleCategory";
 import ProductDetails from "./pages/ProductDetails";
 function App() {
   return (
@@ -45,7 +47,8 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path=":slug" element={<UpdateProduct />} />
         </Route>
-
+        <Route path="/category" element={<Categories />} />
+        <Route path="/category/:slug" element={<SingleCategory />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />

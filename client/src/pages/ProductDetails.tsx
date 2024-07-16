@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { error } from "console";
+import ProductCard from "../components/admin/ProductCard";
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -15,8 +16,9 @@ const ProductDetails = () => {
       console.log("cid ", cid, " pid ", pid);
 
       const { data } = await axios.get(
-        `/api/v1/product/related-product/${pid}/${cid}`
+        `http://localhost:5000/api/v1/product/related-product/${pid}/${cid}`
       );
+
       console.log("similar products ", data.products);
 
       setRelatedProducts(data?.products);
@@ -63,7 +65,11 @@ const ProductDetails = () => {
       </div>
       <div>
         <h1> Similar Product</h1>
-        <div>{JSON.stringify(relatedProducts)}</div>
+        <div>
+          {relatedProducts.map((prod) => (
+            <ProductCard product={prod}></ProductCard>
+          ))}
+        </div>
       </div>
     </Layout>
   );

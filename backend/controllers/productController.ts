@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import fs from "fs";
 import mongoose from "mongoose";
 import slugify from "slugify";
+import categoryModel from "../models/categoryModel";
 
 interface CustomFields {
   name: string;
@@ -327,6 +328,8 @@ export const searchProductController = async (req: Request, res: Response) => {
 export const realtedProductController = async (req: Request, res: Response) => {
   try {
     const { pid, cid } = req.params;
+    console.log("pid ", pid, " cid is ", cid);
+
     const productId = new mongoose.Types.ObjectId(pid);
     const categoryId = new mongoose.Types.ObjectId(cid);
 
@@ -338,15 +341,51 @@ export const realtedProductController = async (req: Request, res: Response) => {
       .select("-photo")
       .limit(3)
       .populate("category");
-    res.status(200).send({
+    console.log("products are", products);
+
+    return res.status(200).send({
       success: true,
-      products,
+      products: products,
     });
   } catch (error) {
     console.log(error);
-    res.status(400).send({
+    return res.status(500).send({
       success: false,
       message: "error while geting related product",
+      error,
+    });
+  }
+};
+export const productCategoryController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { slug } = req.params;
+    const category = await categoryModel.findOne({ slug: slug });
+    const products = await productModel
+      .find({ category })
+      .populate("category")
+      .select("-photo");
+    console.log("slug ", slug, "product ", products);
+
+    if (products) {
+      return res.status(200).send({
+        success: true,
+        products: products,
+        message: "got product-category",
+      });
+    } else {
+      res.status(200).send({
+        success: false,
+        message: "error while gettting product-category",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "error while geting related category-egproduct",
       error,
     });
   }

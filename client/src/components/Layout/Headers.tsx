@@ -2,13 +2,15 @@ import { NavLink } from "react-router-dom";
 import { BsShop } from "react-icons/bs";
 import { useAuth } from "../../context/auth";
 import Dropdown from "../Dropdown";
-
+import useCategory from "../../hooks/useCategory";
+import DropdownCategory from "../DropdownCategory";
 export const Headers = () => {
   const [auth, setAuth] = useAuth();
   function handleLogout() {
     setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
   }
+  const categories = useCategory();
   //   console.log("handleLogout in Headers:", handleLogout);
   return (
     <div className="flex font-poppins text-xl bg-zinc-200 shadow-lg h-12 pt-2 px-1 ">
@@ -23,9 +25,7 @@ export const Headers = () => {
           </NavLink>
         </li>
         <li className="mr-6">
-          <NavLink to="/category" className="">
-            Category
-          </NavLink>
+          <DropdownCategory categories={categories}></DropdownCategory>
         </li>
 
         {!auth.user ? (
