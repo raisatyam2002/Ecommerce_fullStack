@@ -4,7 +4,11 @@ import { useAuth } from "../../context/auth";
 import Dropdown from "../Dropdown";
 import useCategory from "../../hooks/useCategory";
 import DropdownCategory from "../DropdownCategory";
+import { useCart } from "../../context/cart";
+// import ContentBadge from "../Badge";
+import { Badge } from "antd";
 export const Headers = () => {
+  const { cart } = useCart();
   const [auth, setAuth] = useAuth();
   function handleLogout() {
     setAuth({ ...auth, user: null, token: "" });
@@ -51,7 +55,11 @@ export const Headers = () => {
         )}
 
         <li className="mr-6">
-          <NavLink to="/cart">Cart(0)</NavLink>
+          <Badge count={cart?.length}>
+            <NavLink to="/cart" className="text-xl">
+              Cart
+            </NavLink>
+          </Badge>
         </li>
       </ul>
     </div>
