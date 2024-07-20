@@ -165,3 +165,31 @@ export const testController = (req: Request, res: Response) => {
     message: "testin succesfull",
   });
 };
+export const profileController = async (req: Request, res: Response) => {
+  try {
+    const { name, password, phone, address } = req.body;
+    const user = await userModel.findById(req.user._id);
+    const hashedPassword = await hashPassword(password);
+    const updateUser = await userModel.findByIdAndUpdate(
+      user?._id,
+      {
+        name: name || user?.name,
+        password: hashedPassword || user?.password,
+        phone: phone || user?.phone,
+        address: address || user?.address,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      user: updateUser,
+      message: "user updated ",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "error in updating user",
+      error: error,
+    });
+  }
+};

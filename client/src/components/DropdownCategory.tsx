@@ -63,7 +63,7 @@ const DropdownCategory: React.FC<DropdownProps> = ({ categories }) => {
       >
         <MenuItem onClick={() => navigate(`category`)}>All Categories</MenuItem>
         {categories.map((cat) => (
-          <div>
+          <div key={cat._id}>
             <MenuItem
               key={cat._id}
               onClick={() => handleCategoryClick(cat.slug)}
