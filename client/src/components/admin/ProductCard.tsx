@@ -24,10 +24,7 @@ const ProductCard = ({ product }: any) => {
         <p>{product.description}</p>
         <p> ${product.price}</p>
         <p>{product.quantity}</p>
-        <img
-          src={`http://localhost:5000/api/v1/product/product-photo/${product._id}`}
-          alt="product-photo"
-        ></img>
+        <img src={product.photo} alt="product-photo"></img>
         <div
           style={{
             display: "flex",
