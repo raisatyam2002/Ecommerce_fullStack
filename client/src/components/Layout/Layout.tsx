@@ -21,7 +21,7 @@ export const Layout = ({
   author = "satyam Rai",
 }: LayoutProps) => {
   return (
-    <div>
+    <div className="Layout">
       <HelmetProvider>
         <Helmet>
           <meta charSet="UTF-8" />
@@ -34,7 +34,7 @@ export const Layout = ({
 
       <Headers />
 
-      <main className="h-70v ">
+      <main className="Main ">
         <ToastContainer />
         {children}
       </main>

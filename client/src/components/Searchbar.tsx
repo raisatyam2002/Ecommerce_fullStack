@@ -51,6 +51,7 @@ const SearchBar = ({ keyWord, setKeyWord }: any) => {
         onChange={(e) => {
           setKeyWord(e.target.value);
         }}
+        style={{ width: "800px" }} // Set your desired width here
       />
     </Space>
   );

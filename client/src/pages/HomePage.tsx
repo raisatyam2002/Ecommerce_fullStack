@@ -38,7 +38,7 @@ export const HomePage = () => {
       );
 
       if (data.success) {
-        // setProducts(data.products);
+        setProducts(data.products);
         // toast.success("got all product");
       } else {
         toast.error("error 1 while gettting product");
@@ -126,8 +126,8 @@ export const HomePage = () => {
   };
   return (
     <Layout title="All best offers">
-      <div className="grid grid-cols-3 gap-4 m-5">
-        <div className="">
+      <div className="flex">
+        <div className="ml-6">
           <div>
             <h4>filter By category</h4>
             <div className="flex flex-col">
@@ -172,12 +172,12 @@ export const HomePage = () => {
           </div>
         </div>
         {products.length > 0 ? (
-          <div className=" col-span-2">
-            <div className="m-4">
+          <div className="ml-64 ">
+            <div className="m-4 ">
               <SearchBar keyWord={keyWord} setKeyWord={setKeyWord} />
             </div>
             <h1 className="text-xl"> All products</h1>
-            <div className="flex">
+            <div className="flex productConatiner">
               {products?.map((product: any) => (
                 <Card key={product._id} product={product}></Card>
               ))}

@@ -17,7 +17,7 @@ export const Headers = () => {
   const categories = useCategory();
   //   console.log("handleLogout in Headers:", handleLogout);
   return (
-    <div className="flex font-poppins text-3xl bg-zinc-200 shadow-lg  py-8 px-1 h-10v">
+    <div className="flex font-poppins text-3xl bg-zinc-200 shadow-lg  py-8 px-1  Header">
       <NavLink to="/" className="flex space-x-2 font-extrabold">
         <BsShop className="m-1"></BsShop>
         <span>Ecommerce App</span>

@@ -17,7 +17,7 @@ const ProductCard = ({ product }: any) => {
     <Card
       title="Product"
       bordered={false}
-      style={{ width: 900, margin: "8px" }}
+      style={{ width: 300, margin: "8px" }}
     >
       <div key={product._id}>
         <p>{product.name}</p>

@@ -29,8 +29,8 @@ export const SingleCategory = () => {
   }, [slug]);
   return (
     <Layout>
-      <h1>{slug}</h1>
-      <div>
+      <h1 className="text-3xl text-center uppercase">{slug}</h1>
+      <div className="productConatiner mx-96">
         {products?.map((prod) => (
           <div key={prod._id}>
             <ProductCard product={prod}></ProductCard>

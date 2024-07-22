@@ -5,3 +5,27 @@ body {
   margin: 0px;
   overflow: hidden;
 }
+.Layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.Header {
+  flex: 0 0 10vh;
+}
+.Main {
+  flex: 1;
+  overflow-y: auto;
+}
+.Footer {
+  flex: 0 0 20vh;
+}
+.productConatiner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+img {
+  height: 200px;
+  width: 200px;
+}
