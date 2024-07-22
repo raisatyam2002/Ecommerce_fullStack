@@ -36,8 +36,9 @@ export const HomePage = () => {
       const { data } = await axios.get(
         `http://localhost:5000/api/v1/product/product-list/${page}`
       );
+
       if (data.success) {
-        setProducts(data.products);
+        // setProducts(data.products);
         // toast.success("got all product");
       } else {
         toast.error("error 1 while gettting product");

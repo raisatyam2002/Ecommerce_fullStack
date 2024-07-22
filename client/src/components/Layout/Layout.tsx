@@ -34,7 +34,7 @@ export const Layout = ({
 
       <Headers />
 
-      <main className="h-90v">
+      <main className="h-70v ">
         <ToastContainer />
         {children}
       </main>
